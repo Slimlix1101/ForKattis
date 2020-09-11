@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="1.0~2.0\AlphabetSpam.cs" />
-    <Compile Include="Avion.cs" />
+    <Compile Include="1.0~2.0\Avion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
