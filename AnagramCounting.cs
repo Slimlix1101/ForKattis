@@ -31,65 +31,11 @@ namespace ForKattis
                             number[i] = (char)(temp % 10);
                         }
                     }
-            }
-            else
-            {
-                for (int k = 2; k <= input; k++)
-                {
-                    if (k < 10)
-                    {
-                        for (int i = 0; i < number.Count; i++)
-                        {
-                            temp = (number[i] - '0') * k;
-                            if (temp < 10) number[i] = (char)temp;
-                            else
-                            {
-                                if (i == number.Count - 1)
-                                {
-                                  number.Add((char)(temp / 10));
-                                  number[i] = (char)(temp % 10);
-                                  break;
-                                }
-                                 number[i + 1] = (char)(temp / 10);
-                                 number[i] = (char)(temp % 10);
-                            }
-                        }
-                    } else
-                    {
-
-                    }
-                    
-                }
-                    
-
-            }
-                
+            } /*IN PROGRESS: NEED FACTIONAL FOR VALUE>10*/
+              
             return number;
         }
-        static List<char> fac_divide(int input, List<char> number)
-        {
-            Int32 temp, left;
-            char divide; // 被除數
-            if (input == 1) return number;
-            for (int k = 2; k <= input; k++)
-            {
-                divide = number[0];
-                temp = 0; //
-                left = 0; // 餘數
-                for (int i = number.Count-1; i >= 0; i--)
-                {
-                    temp = (divide - '0') / k;
-                    left += (divide - '0') % k;
-                    if (temp > 0) // can be divided
-                    {
-                        number[i] = (char)temp; // change number
-                        divide = left*10
-
-                    }
-                }
-            }
-               
-        }
+        
 
 
         static void Main(string[] args)
