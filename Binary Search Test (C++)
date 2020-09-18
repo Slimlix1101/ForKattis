@@ -1,0 +1,46 @@
+bool binary_searche (int *input, int target, int arysize) {
+	int sta = 0, end = arysize-1, check;
+	while (1)
+	{	
+		check = (sta+end)/2; 
+		if (input[check] == target) {
+			return true;
+		} else if (input[check] < target) {
+			sta = check;
+		} else if (input[check] > target) {
+			end = check;
+		}
+		if (end-sta==1) {
+			if (input[sta]==target|| input[end]==target) return true;
+			else return false;	
+		}	
+	}
+} // array need to be sorted before importing
+
+
+			cin >> get;
+			sta = 0, end = n-1;
+			contain = false;
+			while (1)
+			{	
+				check = (sta+end)/2;
+				cout << "Checking index " << check << endl; 
+				if (input[check] == get) {
+					cout << "YES" << endl;
+					contain = true;
+					break;
+				} else if (input[check] < get) {
+					sta = check;
+				} else if (input[check] > get) {
+					end = check;
+				}
+				if (sta == end-1) {
+					if (input[sta]==get|| input[end]==get) {
+						cout << "YES" << endl;
+						contain = true;
+						break;
+					} else break;	
+				}
+				cout << sta << "~" << end << endl;
+			}
+			if (!contain) cout << "NO" << endl;
