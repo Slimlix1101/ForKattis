@@ -1,0 +1,18 @@
+#include <iostream>
+#include <string> 
+using namespace std;
+
+int main()
+{
+	int i, g; // i : group count
+	string input;
+	while (cin >> i >> input && i != 0)
+	{
+		g = input.size()/i; // element count in one group
+		for (int w = 1 ; w <= i ; w++)
+			for (int q = 1 ; q <= g ; q++)
+				cout << input[g*w-q];
+				
+		cout << endl;
+	}
+ } 
