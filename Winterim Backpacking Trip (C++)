@@ -1,0 +1,49 @@
+#include <iostream> 
+#include <algorithm>
+#include <utility> 
+using namespace std;
+
+double getmid(int a, int b)
+{
+	if ((a+b)%2==1) return (a+b)/2+0.5;
+	else return (a+b)/2;
+}
+
+int main()
+{
+	int a; 
+	double midx, midy;
+	bool hasSym = true;
+	pair<int, int> point[10000];
+	while (cin >> a && a != 0)
+	{
+		int l = 1;
+		hasSym = true;
+		a-=1;
+		for (int r = 0 ; r <= a; r++)
+		{
+			cin >> point[r].first >> point[r].second;
+		}
+		sort(point, point+a+1);
+		midx=getmid(point[0].first, point[a].first);
+		midy=getmid(point[0].second, point[a].second);
+		while (l <= a-l) {
+			if (getmid(point[l].first, point[a-l].first)== midx) {
+				if (getmid(point[l].second, point[a-l].second) == midy) {
+					l++;
+					continue;
+				}
+				else {;
+					hasSym=false;
+					break;
+				}
+			}
+			else {
+				hasSym=false;
+				break;
+			}
+			l++;
+		}
+		cout << (hasSym? "yes" : "no") << endl;
+	}
+}
