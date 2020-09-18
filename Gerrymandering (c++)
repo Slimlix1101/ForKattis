@@ -1,0 +1,47 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+
+int main()
+{
+	int a,b, dis, va, vb, temp;
+	while (cin >> a >>b)
+	{
+		double totalwaste_A=0, totalwaste_B=0, totalvote=0;
+		int distinct[b][2];
+		for (int r=0; r<b; r++)
+		{
+			distinct[r][0] = 0;
+			distinct[r][1] = 0;
+		}
+		for (int r=0; r<a; r++)
+		{
+			cin >> dis >> va >> vb;
+			distinct[dis-1][0]+=va;
+			distinct[dis-1][1]+=vb;
+			totalvote+=(va+vb);
+		}
+		for (int r=0; r<b; r++)
+		{
+			if (distinct[r][0] > distinct[r][1]) // a wins
+			{
+				temp = distinct[r][0]-((distinct[r][1]+distinct[r][0])/2+1);
+				printf("A %d %d\n",temp ,distinct[r][1]);
+				totalwaste_A+=temp;
+				totalwaste_B+=distinct[r][1];
+				
+			} else //b wins
+			{
+				temp = distinct[r][1]-((distinct[r][0]+distinct[r][1])/2+1);
+				printf("B %d %d\n",distinct[r][0],temp );
+				totalwaste_B+=temp;
+				totalwaste_A+=distinct[r][0];
+			}
+		}
+		cout << fixed << setprecision(10) << abs(totalwaste_A-totalwaste_B)/totalvote << endl;
+	}
+
+	return 0;
+ } 
