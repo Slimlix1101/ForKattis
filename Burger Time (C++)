@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{	
+	int i, a;
+	while (cin >> i)
+	{
+		int small = i+1;
+		if (i == 0) break;
+			char input[i];
+			vector<int> at;
+		for (int w = 0 ; w<i ; w++)
+			cin >> input[w];
+			
+		for (int w = 0 ; w<i-1 ; w++)	
+		{
+			a=0;
+			if (input[w] == 'R')
+			{
+				while (input[w+a] != 'D' && input[w+a] != 'Z')
+				{
+					a++;
+				}
+				if (a < small) small = a;
+			}
+			if (input[w] == 'D')
+			{
+				while (input[w+a] != 'R' && input[w+a] != 'Z')
+				{
+					a++;
+				}
+				if (a < small) small = a;
+			}
+			if (input[w] == 'Z')
+			{
+				while (input[w+a] != 'D' && input[w+a] != 'R' && input[w+a] != 'Z')
+				{
+					a++;
+				}
+				if (a < small) small = a;
+			}
+		}
+		cout << small << endl;
+		
+
+					
+	}
+			
+}
