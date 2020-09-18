@@ -1,0 +1,49 @@
+#include <iostream> 
+#include <vector>
+#include <string>
+using namespace std;
+
+struct meal {
+	string name;
+	int price;
+};
+
+int main()
+{
+	meal set[5] = 
+	{{"Medium Wac", 4},
+	 {"WChicken Nugget", 8},
+	 {"Geez Burger", 7},
+	 {"ButtMilk Crispy Chicken", 6},
+	 {"Plastic Toy", 3}}, single[4] =
+	 {{"German Fries", 2}, 
+	  {"Durian Slices", 3},
+	  {"WcFurry", 5},
+	  {"Chocolate Sunday", 7}};
+	int i, k, total;
+	vector<meal> order;
+	while (cin >> i)
+	{
+		if (i != 0)
+		{
+			if (i == 1)
+			{
+				cin >> k;
+				order.push_back(set[k-1]);
+				
+			} else {
+				cin >> k;
+				order.push_back(single[k-1]);
+			}
+		} else {
+			for (int r = 0 ; r < order.size() ; r++)
+			{
+				cout << order[r].name << " " << order[r].price << endl;
+				total+=order[r].price;
+			}
+			cout << "Total: " << total << endl;
+		}
+	}
+
+			  
+	
