@@ -1,0 +1,66 @@
+
+
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+/*假設輸入的函數為f(x)，f(x)在x的切線斜率為g(x)的話，會出現以下四種情況。
+1. f(x) == 0 && g(x) == 0 
+這樣代表f(x)對應的y值為0 (也就是說在x軸上) ，且在這點的切線斜率是０，這樣代表切線和ｘ軸重疊，也就代表這隻鳥可以在赤道的任何地方睡覺。
+2. f(x) == 0 && g(x) != 0
+這樣代表切點在ｘ軸上，可是斜率不為零，故切線和ｘ軸的交點即為(x, 0)，那因為題目給的切點x座標值為a，也就是說切點是(a, 0)。
+3. f(x) != 0 && g(x) == 0
+這樣代表切點不在ｘ軸上，可是斜率為零，代表切線永遠不會和ｘ軸有交點，也就代表這隻鳥不能睡覺。
+4. f(x) != 0 && g(x) != 0
+這樣代表切點雖然不在ｘ軸上，但是斜率不為零，代表切線和ｘ軸必有一交點。
+那假設切點為(a, f(a))，斜率為g(a)，由點斜式我們可以知道切線方程式g(a)*(x-a) = y-f(a)
+那我們想知道切線和ｘ軸(y = 0)的交點(x, 0)，可以由上面的方程式得知。
+帶入y=0 
+g(a)*(x-a) = -f(a)
+-f(a)/g(a) = x-a
+-f(a)/g(a)+a = x
+所以鳥可以睡覺的地方就是(-f(a)/g(a)+a, 0)*/
+
+int main()
+{
+	cout << fixed << setprecision(3);
+	int t, n;
+	while (cin >> t)
+	{
+		for (int i = 0 ; i < t ; i++)
+		{
+			int n;
+			while (cin >> n)
+			{
+				double zerol = 0, onel = 0, x;
+				int num[n+1]; 
+				double a;
+				for (int k = 0 ; k <= n ; k++)
+					cin >> num[k];
+				cin >> a;
+				for (int k = 0 ; k <= n ; k++)
+				{
+					zerol+=num[k]*pow(a, n-k); // n-k pow
+					num[k]*=n-k; // getting derivative
+				}
+				for (int k = 0 ; k < n ; k++)
+					onel += num[k] * pow(a, n-k-1);
+				if (zerol == 0) 
+				{
+					if (onel == 0) cout << "It can sleep everywhere!" << endl;
+					else cout << "(" << a << "," << 0 << ")" << endl;
+				} else
+				{
+					x = -zerol/onel+a;
+					if (onel == 0) cout << "It cannot sleep!" << endl;
+					else cout << "(" << x << "," << 0 << ")" << endl;
+								
+					
+				}
+			}
+			
+		}		
+		
+	}	
+}
