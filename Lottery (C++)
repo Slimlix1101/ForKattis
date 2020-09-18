@@ -1,0 +1,44 @@
+#include <iostream> 
+using namespace std;
+
+int main()
+{
+	bool have_c = false;
+	int luckynum[3], num[5][2];
+	while (cin >> luckynum[0] >> luckynum[1] >> luckynum[2])
+	{
+		int money = 0;
+		for (int k = 0 ; k < 2 ; k++)
+			for (int i = 0 ; i < 5 ; i++)
+				cin >> num[i][k];
+		for (int i = 0 ; i < 5 ; i++)
+		{
+			for (int k = 0 ; k < 3 ; k++)
+			{
+				if (num[i][0] == luckynum[k]) 
+				{
+					switch (k)
+					{
+						case 0 :
+							money+=num[i][1];
+							break;
+						case 1 :
+							money+=num[i][1];
+							break;
+						case 2 :
+							money-=num[i][1];
+							have_c = true;
+							break;
+					}
+				}
+			}
+		}
+		if (!have_c) money*=2;
+		if (money < 0) money = 0;
+		cout << money << endl;
+		
+	}
+
+			  
+	
+}
