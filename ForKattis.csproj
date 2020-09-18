@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="1.0~2.0\AlphabetSpam.cs" />
     <Compile Include="1.0~2.0\Avion.cs" />
-    <Compile Include="AllDifferentDirections.cs" />
+    <Compile Include="2.1~3.0\AllDifferentDirections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
