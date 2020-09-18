@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ForKattis.AnagramCounting</StartupObject>
+    <StartupObject>ForKattis.AllDifferentDirections</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="1.0~2.0\AlphabetSpam.cs" />
     <Compile Include="1.0~2.0\Avion.cs" />
-    <Compile Include="AnagramCounting.cs" />
+    <Compile Include="AllDifferentDirections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
