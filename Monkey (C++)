@@ -1,0 +1,43 @@
+#include <iostream> 
+#include <algorithm>
+using namespace std;
+
+struct number {
+	int a;
+	int count;
+};
+
+bool cmp (number *k, number *b)
+{
+	if (k->count > b->count) return true;
+	else return false;
+}
+int main()
+{
+	int n;
+	while (cin >> n && n!=0)
+	{
+		int input[1000];
+		number save[10], *pointer[10];
+		for (int i = 0 ; i <n ; i++)
+			cin >> input[i];
+		sort(input, input+n);
+		for (int i = 0 ; i < 10 ; i++)
+		{
+			pointer[i] = &save[i];
+			save[i].count = 0;
+			save[i].a = i;
+		}
+		for (int i = 0 ; i < n ; i++)
+			save[input[i]].count++;
+		sort(pointer, pointer+10, cmp);
+		for (int i = 0 ; i < 10 ; i++)
+		{
+			if (pointer[i]->count != 0) cout << (pointer[i])->a << " ";
+		}
+			
+			
+		cout << endl;
+				
+		
+	}
