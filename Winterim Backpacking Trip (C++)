@@ -1,49 +1,46 @@
-#include <iostream> 
-#include <algorithm>
-#include <utility> 
+#include <iostream>
 using namespace std;
 
-double getmid(int a, int b)
-{
-	if ((a+b)%2==1) return (a+b)/2+0.5;
-	else return (a+b)/2;
-}
+int input[600];
 
+int daycounter(int *ary, int size, int distance)
+{
+	int total = 0, daycount=0;
+	for (int r= 0 ; r < size ; r++)
+	{
+		if (total+ary[r] > distance) {
+			daycount++;
+			total = ary[r];
+		} else total+=ary[r];
+	}
+	return daycount+1;
+}
 int main()
 {
-	int a; 
-	double midx, midy;
-	bool hasSym = true;
-	pair<int, int> point[10000];
-	while (cin >> a && a != 0)
+	int camp, day;
+	while (cin >> camp >> day)
 	{
-		int l = 1;
-		hasSym = true;
-		a-=1;
-		for (int r = 0 ; r <= a; r++)
+		camp+=1;
+		day+=1;
+		int max = 0, min = 0, mid=0, ans;
+		for (int r = 0 ; r < camp ; r++)
+		cin >> input[r];
+		for (int r = 0; r <= camp ; r++)
 		{
-			cin >> point[r].first >> point[r].second;
+			max+=input[r];
+			if (input[r] > min) min=input[r];
 		}
-		sort(point, point+a+1);
-		midx=getmid(point[0].first, point[a].first);
-		midy=getmid(point[0].second, point[a].second);
-		while (l <= a-l) {
-			if (getmid(point[l].first, point[a-l].first)== midx) {
-				if (getmid(point[l].second, point[a-l].second) == midy) {
-					l++;
-					continue;
-				}
-				else {;
-					hasSym=false;
-					break;
-				}
-			}
+		ans = -1;
+		while (max >= min) {
+			mid = (max+min)/2;
+			if (daycounter(input, camp, mid) > day) min=mid+1;
 			else {
-				hasSym=false;
-				break;
+				ans = mid;
+				max=mid-1;
 			}
-			l++;
 		}
-		cout << (hasSym? "yes" : "no") << endl;
+	cout << ans << "\n";
 	}
+
+return 0;
 }
