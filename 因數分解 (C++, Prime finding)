@@ -1,0 +1,59 @@
+#include <iostream>
+#include <vector>
+#include <cmath> 
+using namespace std;
+
+vector<int> findprime(int n)
+{
+	vector<int> primelist;
+	int i;
+	bool isPrime;
+	int factor = 2;
+	while (factor <= n)
+	{
+		if (n%factor != 0) // not n's divisor
+		{ 
+			factor++;
+			continue;
+		}
+		isPrime = true;
+		for (i=2; i<=sqrt(factor); i++)
+			if (factor % i == 0)
+			{
+				isPrime = false;
+				break;
+			}
+		if (!isPrime)
+		{
+			factor++;
+			continue;
+		}
+		primelist.push_back(factor);
+		factor++;
+		
+	}
+	return primelist;
+}
+
+int main () {
+	int n, p;
+	while (cin >> n)
+	{
+		vector<int> prime = findprime(n);
+		/*for (int i=0; i<prime.size(); i++)
+			cout << prime[i] << " ";
+		cout << endl;*/
+		for (int i=0; i<prime.size(); i++)
+		{
+			p=0;
+			do {
+				p++;
+			} while ((n/=prime[i]) % prime[i] == 0);
+			if (p == 1) cout << prime[i];
+			else cout << prime[i] << "^" << p;
+			if (i != prime.size()-1) printf(" * ");
+		}
+		cout << "\n";
+	}
+	
+}
