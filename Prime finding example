@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int findprimecount(int n, int r)
+{
+	int factor;
+	int primenum=0, i;
+	if (n == 1) factor = 2; // notice that 1 is not a prime
+	else factor = n;
+	bool isPrime;
+	while (factor <= r)
+	{
+		isPrime = true;
+		// the for loop determines whether it's a prime
+		for (i=2; i<=sqrt(factor); i++) // from 2 to sqrt(current num)
+		{
+		
+			if (factor%i == 0) // not a prime
+			{
+				isPrime = false;
+				break; // leave for-loop for next factor
+			}
+		}
+		if (!isPrime)
+		{
+			factor++;
+			continue; // check next factor
+		} else {
+			primenum++;
+			factor++;
+		}	
+	}
+	return primenum;
+}
+
+int main()
+{
+	int n, r;
+	while (cin >> n>>r)
+	{
+		int value = findprimecount(n, r);
+		cout << value << endl;
+	}
+	
+}
