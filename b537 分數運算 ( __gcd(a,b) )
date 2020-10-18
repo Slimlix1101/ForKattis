@@ -1,0 +1,41 @@
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+
+using namespace std;
+int main()
+{
+	int a, b, c, d, up, down, comm, ch;
+	while (scanf("%d %d %d %d %c",&a,&b,&c,&d,&ch) == 5)
+	{
+		switch (ch)
+		{
+			case '+':	
+				up = a*d+b*c;
+				down = b*d;
+				break;
+			case '-':	
+				up = a*d-b*c;
+				down = b*d;
+				break;
+			case '*':	
+				up = a*c;
+				down = b*d;
+				break;
+			case '/':
+				up = a*d;
+				down = b*c;
+				break;
+		}
+		comm = abs(__gcd(up, down));
+		up/=comm;
+		down/=comm;
+		if ((down < 0 && up > 0) || (down<0 && up<0)) {
+			up = -up;
+			down = -down;
+		}
+		if (up%down == 0) cout << up/down << "\n";
+		else printf("%d/%d\n", up, down);
+		
+	}
+}
