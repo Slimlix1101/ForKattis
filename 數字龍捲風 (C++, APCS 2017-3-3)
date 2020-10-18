@@ -1,0 +1,67 @@
+#include<iostream>
+using namespace std;
+
+/**/
+int main()
+{
+	int n, dirt; // 0~3 indicates -i -j +j +i 
+	while (cin >> n >> dirt) // n is odd number
+	{
+		int input[n][n], muls, cter, i, j; 
+		// muls = stepping forward, cter = 2 moves change direction
+		for (i = 0 ; i< n; i++)
+			for(j = 0 ; j< n; j++)
+				cin >> input[i][j];
+		muls = 1;
+		cter = 2;
+		i = n/2;
+		j = n/2;
+		cout << input[i][j];
+		while (1)
+		{
+			
+			for (int r=0; r<cter; r++)
+			{
+				
+				switch (dirt)
+				{
+					case 0: // -j
+						for (int k=0; k<muls; k++)
+						{
+							j--;
+							cout << input[i][j];
+						}	
+						break;
+					case 1: // -i
+						for (int k=0; k<muls; k++)
+							{
+								i--;
+								cout << input[i][j];
+							}
+						break;
+					case 2: // +j
+						for (int k=0; k<muls; k++)
+						{
+							j++;
+							cout << input[i][j];
+						}
+						break;
+					case 3: // +i
+					for (int k=0; k<muls; k++)
+						{
+							i++;
+							cout << input[i][j];
+						}
+						break;
+				}
+				if (dirt == 3) dirt = 0;
+				else dirt++; // change direction after every move
+				
+			}
+			muls++; // adding steps
+			if (muls == n-1) cter++; // when steps = n-1, moves become 3 times
+			if (muls == n) break;	// if steps reach n, means every element has been visited.
+		}
+		cout << endl;
+	}
+}
