@@ -1,0 +1,39 @@
+#include<iostream>
+using namespace std;
+
+struct person {
+	int frnum;
+	bool visited;
+};
+/**/
+int main()
+{
+	int ppl, groupcount, q;
+	while (cin >> ppl)
+	{
+		groupcount =0;
+		person list[ppl];
+		for (int i=0; i<ppl; i++)
+		{
+			cin >> list[i].frnum;
+			list[i].visited = false;
+		}
+			
+		for (int i =0; i<ppl; i++)
+		{
+			if (!list[i].visited) // find a not visited group
+			{
+				list[i].visited = true; // set as visited
+				q = list[i].frnum; // find i's friend
+				groupcount++; 
+				while (q != i) // while not traced back to the first person
+				{
+					list[q].visited = true;
+					q = list[q].frnum; // set 
+					
+				}
+			} else continue;
+		}
+		cout << groupcount << endl;
+	}
+}
