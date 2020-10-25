@@ -1,0 +1,107 @@
+
+#include<iostream>
+using namespace std;
+
+int settingx[] = {1,0,-1,0,1,0}; // right down left up
+int settingy[] = {0,-1,0,1,0,-1};
+
+string checking[4] = {"down", "left", "up", "right"}; //facing down left up right
+
+struct Midpoint {
+	int xvalue;
+	int yvalue;
+	int facing;
+};
+
+bool isBottom (Midpoint midpoint) {
+	if (midpoint.yvalue > 1) return false;
+	else if (midpoint.yvalue == 1 && midpoint.facing == 2) return false;
+	else return true;
+}
+
+Midpoint SetNext (Midpoint &midpoint, int actnum, int x, int y)
+{
+	if (midpoint.facing == 3) { 
+		if (midpoint.yvalue == 0) return midpoint;
+	} else {
+		if (midpoint.yvalue == 1) return midpoint;
+	}
+	if (isBottom(midpoint)) return midpoint;
+	else midpoint.yvalue--;
+	Midpoint previous = midpoint;
+	int counter=0;
+	bool pass = true; 
+	// saving previous status, if block go out of range, return to previous status
+	switch (actnum) {
+		case 0:
+			break;
+		case 1:
+			midpoint.xvalue+=1;
+			break;
+		case 2:
+			midpoint.xvalue-=1;
+			break;
+		case 3:
+			if (midpoint.facing == 2) midpoint.yvalue=0;
+			else midpoint.yvalue = 1;
+			return midpoint;
+		case 4:
+			midpoint.facing+1 == 4? midpoint.facing = 0 : midpoint.facing++;
+			break;
+	}
+	
+	for (int i = midpoint.facing; counter<3; counter++)
+	{
+		if (midpoint.xvalue+settingx[i]<0 || midpoint.xvalue+settingx[i] >= x)
+		{
+			pass = false;
+			break;
+		} 
+		if (i+1 == 4) i = 0;
+		else i++;	
+	}
+	if (pass) return midpoint;
+	else return previous;
+	
+}
+
+int status[100][100];
+
+int main()
+{
+	int x, y, actcount, actnum, counter;
+	Midpoint midpoint;
+	while (cin >> x >> y >> actcount)
+	{
+		midpoint.xvalue = (x%2 == 0? x/2-1: x/2);
+		midpoint.yvalue = y-1;
+		midpoint.facing = 0;
+		for (int i = 0 ; i<x; i++)
+			for (int k = 0 ;k< y; k++)
+				status[i][k] = 0;
+		//printf("Midpoint (%d, %d)\n Facing %s\n",midpoint.xvalue+1,midpoint.yvalue+1, checking[midpoint.facing].c_str());
+		for (int i = 0 ; i<actcount; i++)
+		{
+			cin >> actnum;
+			midpoint = SetNext(midpoint, actnum, x, y);
+			printf("Midpoint (%d, %d) Facing %s\n",midpoint.xvalue+1,midpoint.yvalue+1, checking[midpoint.facing].c_str());
+		}
+		counter=0;
+		status[midpoint.xvalue][midpoint.yvalue] = 1;
+		for (int i = midpoint.facing; counter<3; counter++)
+		{
+			status[midpoint.xvalue+settingx[i]][midpoint.yvalue+settingy[i]] = 1;
+			i++;
+		}		
+		for (int i = y-1 ; i>=0; i--)
+		{
+			for (int k = 0 ;k<x; k++)
+				cout << status[k][i];
+			cout << endl;
+		}
+				
+		
+			
+	}
+	return 0;
+}
