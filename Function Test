@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+void swapactual(int &a, int &b) {
+	swap(a, b);
+	return;
+}
+void swaplocal(int a, int b) {
+	swap(a, b);
+	return;
+}
+/*
+Actual value: a=3, b=5
+After local: a=3, b=5
+After actual: a=5, b=3
+*/
+int main()
+{
+	int a=3, b=5;
+	printf("Actual value: a=%d, b=%d\n",a,b);
+	swaplocal(a, b);
+	printf("After local: a=%d, b=%d\n",a,b);
+	swapactual(a, b);
+	printf("After actual: a=%d, b=%d\n",a,b);
+}
