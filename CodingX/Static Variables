@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+void funCheck(void);
+
+int main(void)
+{
+	int i;
+	funCheck(); // initializing static int count
+	for (int i = 0 ; i<=3 ; i++)
+	{
+		funCheck(); // total four times of execution
+	}
+	
+	cout << endl;
+	return 0;
+}
+
+void funCheck(void)
+{
+	static int count = 0; 
+	int com=0;
+	
+	cout << endl 
+			<< "The " << ++count << " time funcheck being called."; // count will add up to 5
+	cout << endl
+			<< "Com = " << com << endl;
+}
