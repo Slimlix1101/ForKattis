@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
 	int a, b, c, d, up, down, comm, ch;
-	while (scanf("%d %d %d %d %c",&a,&b,&c,&d,&ch) == 5)
+	while (scanf("%d %d %d %d %c",&a,&b,&c,&d,&ch) == 5) // Every variable's input add 1 to the final result
 	{
 		switch (ch)
 		{
