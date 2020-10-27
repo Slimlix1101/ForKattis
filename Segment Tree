@@ -30,11 +30,11 @@ int query(int cur, int p, int q, int x, int y) // search the sum of [x, y]
 	}
 	mid = ((p+q)>>1);
 	res = 0;
-	if (x <= mid) // search the left part of [p, q] (which is [p, mid], [mid, q] will return its value)
+	if (x <= mid) // search the left part of [p, q] (which is [p, mid], [mid+1, q] will return its value)
 	{
 		res += query(cur<<1, p, mid, x, y); // will continue until find the final value we need on the left node
 	}
-	if (y >= mid+1) // search the right part, which is [mid, q] 
+	if (y >= mid+1) // search the right part, which is [mid+1, q] 
 	{
 		res += query((cur<<1)|1, mid+1, q, x, y); // will continue until find the final value we need on the right node
 	}
