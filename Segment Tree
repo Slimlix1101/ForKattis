@@ -1,0 +1,88 @@
+#include<iostream>
+#include <cstring>
+using namespace std;
+
+int tree[1000000];
+int tbl[100005][2], cnt[100005];
+
+void build(int cur, int p, int q) //  [p, q]
+{
+	int mid, left, right;
+	if (p == q)
+	{
+		tree[cur] = 0; // the sum of stats of [p, q]
+		return;
+	}
+	mid = ((p+q)>>1); // middle of the current node
+	left = (cur<<1); // left node's number
+	right = (cur|1); // right node's number
+	build(left, p, mid); // build left
+	build(right, mid+1, q);  // build right
+	tree[cur] = tree[left] + tree[right]; // sum of left and right's value is current node's value
+}
+
+int query(int cur, int p, int q, int x, int y) // search the sum of [x, y]
+{
+	int mid, res;
+	if (x <= p && y >= q)
+	{
+		return tree[cur]; // current node [p, q] is within [x, y]
+	}
+	mid = ((p+q)>>1);
+	res = 0;
+	if (x <= mid) // search the left part of [p, q] (which is [p, mid], [mid, q] will return its value)
+	{
+		res += query(cur<<1, p, mid, x, y); // will continue until find the final value we need on the left node
+	}
+	if (y >= mid+1) // search the right part, which is [mid, q] 
+	{
+		res += query((cur<<1)|1, mid+1, q, x, y); // will continue until find the final value we need on the right node
+	}
+	return res; // the final value
+}
+
+void change(int cur, int p, int q, int pos, int val) // pos is the one we're changing
+{
+	int mid;
+	if (p == q) // range length is 1, found the one we're changing
+	{
+		tree[cur] = val; // change value
+		return;
+	}
+	mid = ((p+q)>>1); 
+	if (pos <= mid) // on the left node
+	{
+		change(cur<<1, p, mid, pos, val);
+	}
+	else // on the right node
+	{
+		change((cur<<1)|1, mid+1, q, pos, val);
+	}
+	tree[cur] = tree[cur<<1] + tree[(cur<<1)|1]; // the new value of parent node is left + right value
+}
+
+int main()
+{
+	int n, i, t, x, y;
+	long long ans;
+	while (cin >> n)
+	{
+		memset(cnt, 0, sizeof(cnt));
+		for (i=0; i<n+n; i++)
+		{
+			cin >> t;
+			tbl[t][cnt[t]++] = i; // tbl[t][0] first position of t, tbl[t][1] second position of t, cnt[t] is a counter of t
+		}
+		build(1, 0, n+n-1);
+		for (i=1, ans=0; i<=n; i++)
+		{
+			x = tbl[i][0];
+			y = tbl[i][1];
+			ans += query(1, 0, n+n-1, x, y); // find the value i's ans value, and add up to the total
+			change(1, 0, n+n-1, x, 1); // change i's first position to 1 (in tree[], which will be counted in query() 
+			change(1, 0, n+n-1, y, 1); // change second position
+		}
+		cout << ans << "\n";
+	}
+	return 0;
+}
