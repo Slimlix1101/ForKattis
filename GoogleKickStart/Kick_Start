@@ -1,0 +1,58 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+string check[2] = {"ICK", "TART"};
+
+int main()
+{
+    int n, ans;
+    bool confirm;
+    vector<int> kickdir;
+    vector<int> stadir;
+    string s;
+    cin >> n;
+    for (int i = 1; i<=n; i++)
+    {
+        ans = 0;
+        kickdir.resize(0);
+        stadir.resize(0);
+        cin >> s;
+        for (int r=0; r<s.size(); r++)
+        {
+            if (s[r] == 'K' || s[r] == 'S')
+            {
+                confirm = true;
+                if (s[r] == 'K') {
+                	cout << "Detect a K" << endl;
+                    for (int k=1; k<4; k++)
+                        if (s[r+k] != check[0][k-1]) {
+                            confirm = false;
+                            break;
+                        }
+                    if (confirm) kickdir.push_back(r);
+					continue;
+                } 
+                if (s[r] == 'S') {
+                    for (int k=1; k<5; k++)
+                        if (s[r+k] != check[1][k-1]) {
+                            confirm = false;
+                            break;
+                        }
+                    if (confirm) stadir.push_back(r);
+                    continue;
+                } 
+                
+            }
+        }
+        for (int r=0; r<stadir.size(); r++)
+            for (int k=0; k<kickdir.size(); k++)
+            {
+                if (kickdir[k] < stadir[r]) ans++;
+                else break;
+            }
+        cout << "Case #" << i << ": " << ans << endl;
+    }
+    
+}
