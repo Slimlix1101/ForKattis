@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int dp[102];
+
+int main()
+{
+	int n, m, temp, cnt=1;
+	while (cin >> n >> m)
+	{
+		cin >> dp[0];
+		for (int j=1; j<m; j++)
+		{
+			cin >> dp[j];
+			dp[j]+=dp[j-1];
+		}
+		for (int i = 1; i<n; i++)
+		{
+			for (int j=0; j<m; j++)
+			{
+				cin >> temp;
+				if (j == 0) dp[j]+=temp;
+				else dp[j] = min(dp[j-1], dp[j])+temp;
+			}
+		}	
+		printf("Case #%d :\n%d\n", cnt, dp[m-1]);
+		cnt++;
+	}
+	
+			
+}
