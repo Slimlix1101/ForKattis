@@ -1,0 +1,20 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main()
+{
+	int n;
+	double total=0, previous=0;
+	cin >> n;
+	for (int i=0; i<n; i++)
+		cin >> stat[i];
+	sort(stat, stat+n);
+	for (int i=1; i<n; i++)
+	{
+		total = total + previous;
+		previous=previous+i*(stat[i]-stat[i-1]);
+	}
+	total= total + previous;
+	cout << total << endl;
+}
