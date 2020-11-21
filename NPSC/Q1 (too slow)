@@ -1,0 +1,32 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int* stat;
+
+int main()
+{
+	int N;
+	int L, R, ppl, arysize;
+	cin >> N >> L >> R;
+	arysize = R-L+1;
+	stat = new int[arysize];
+	memset(stat, 0, sizeof(long long int)*arysize);
+	for (int i=1; i<=N; i++)
+	{
+		ppl = N%i;
+		if (N - ppl < R) {
+			for (int k=arysize-(R-N+ppl); k<arysize; k++)
+				stat[k]++;
+		}
+	}
+	for (int i=0; i<arysize; i++)
+	{
+		cout << stat[i] << " ";
+	}
+	cout << "\b\n";
+	//cout << stat[arysize-1];
+	//cout << '\n';
+	return 0;
+	
+}
