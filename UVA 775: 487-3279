@@ -1,0 +1,68 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <iomanip>
+#include <algorithm>
+using namespace std;
+
+string key = "ABCDEFGHIJKLMNOPRSTUVWXY";
+int tbl[128];
+vector<int> valueofphone;
+string inputnum;
+
+int main()
+{
+	int tcase, phonenums, cnter;
+	bool hasDuplicate;
+	for (int i=0; i<key.size(); i++)
+	{
+		tbl[key[i]] = i/3 + 2;
+	}
+	cin >> tcase;
+	while (tcase--)
+	{
+		hasDuplicate = false;
+		cin >> phonenums;
+		valueofphone.resize(0);
+		valueofphone.resize(phonenums, 0);
+		for (int i=0; i<phonenums; i++)
+		{
+			cin >> inputnum;
+			for (int k=0; k<inputnum.size(); k++)
+			{
+				if (isdigit(inputnum[k])) valueofphone[i]=valueofphone[i]*10 + (int)(inputnum[k]-48);
+				else if (isalpha(inputnum[k])) valueofphone[i]=valueofphone[i]*10 + tbl[inputnum[k]];
+			}
+				  
+		}
+		sort(valueofphone.begin(), valueofphone.end());
+		for (int i=1; i<phonenums; i++)
+			if (valueofphone[i] == valueofphone[i-1]) {
+				hasDuplicate = true;
+				break;
+			}
+		if (!hasDuplicate) {
+			
+			cout << "No duplicates." << endl;
+			if (tcase != 0) cout << '\n'; 
+			continue;
+		}
+		cnter = 1;
+		for (int i=1; i<phonenums; i++)
+		{
+			if (valueofphone[i] == valueofphone[i-1]) cnter++;
+			else {
+				if (cnter == 1) continue;
+				cout << setw(3) << setfill('0') << valueofphone[i-1]/10000 << "-"; 
+				cout << setw(4) << setfill('0') << valueofphone[i-1]%10000 << " " << cnter << endl;
+				cnter = 1;
+			}
+		}
+		if (cnter > 1) {
+			cout << setw(3) << setfill('0') << valueofphone[valueofphone.size()-1]/10000 << "-"; 
+			cout << setw(4) << setfill('0') << valueofphone[valueofphone.size()-1]%10000 << " " << cnter << endl;
+		}
+		if (tcase != 0) cout << '\n'; 
+	}
+}
