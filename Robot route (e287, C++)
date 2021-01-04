@@ -1,0 +1,74 @@
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+
+pair<int, int> ind;
+
+int mapping[105][105];
+
+int x[4]={1,0,-1,0};
+int y[4]={0,1,0,-1};
+
+int dirc;
+
+int main()
+{
+	int n, m, min=1e7;
+	bool endofroute; // check if all direction is -1
+	long long int total=0;
+	cin >> n >> m;
+	for (int i=0; i<n+2; i++)
+	{
+		for (int j=0; j<m+2; j++)
+		{
+			if (i == 0 || j == 0 || i == n+1 || j == m+1) {
+				mapping[i][j]= -1; // outer layer
+				continue;
+			}
+			cin >> mapping[i][j]; // map information
+			if (mapping[i][j]<min) { // keep tracking smallest value in map (start point) 
+				min=mapping[i][j];
+				ind.first=i;
+				ind.second=j;
+			}
+		}
+	}
+	/*for (int i=0; i<=n+1; i++)
+	{
+		for (int j=0; j<=m+1; j++)
+			cout << mapping[i][j] << " ";
+		cout << endl;
+	}*/
+	total=mapping[ind.first][ind.second];
+	mapping[ind.first][ind.second] = -1;
+	while (true)
+	{
+		min=1e7;
+		endofroute = true;
+		for (int i=0; i<4; i++) // trial of every direction 
+		{
+			if (mapping[ind.first+x[i]][ind.second+y[i]]>0) {  // find a possible direction
+				if (mapping[ind.first+x[i]][ind.second+y[i]]<min) // check if smaller than min
+				{
+					min = mapping[ind.first+x[i]][ind.second+y[i]]; 
+					dirc = i; // set new direction
+				}
+				endofroute = false;
+			} 
+		}
+		if (endofroute) break;
+		ind.first+=x[dirc];
+		ind.second+=y[dirc];
+		total+=mapping[ind.first][ind.second];
+		mapping[ind.first][ind.second]=-1;
+		/*for (int i=0; i<=n+1; i++)
+		{
+			for (int j=0; j<=m+1; j++)
+				cout << setw(3) << mapping[i][j] << " ";
+			cout << endl;
+		}*/
+	}
+	cout << total << endl;	
+	return 0;
+}
