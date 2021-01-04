@@ -1,0 +1,53 @@
+#include <iostream>
+#include <cstring>
+#include <sstream>
+using namespace std;
+
+string s, blank;
+stringstream ss;
+
+int *status;
+bool *obstacle;
+
+int main()
+{
+	int count, row, col, pos, cur_row;
+	cin >> count;
+	cin.ignore();
+	while (count--) 
+	{
+		getline(cin, blank); // a blank line
+		cin >> row >> col;
+		cin.ignore(); // preventing getline conflicting with cin
+		status = new int[col];
+		obstacle = new bool[col];
+		memset(status, 0, sizeof(int)*col);
+		
+		for (int i = 0; i<row; i++)
+		{
+			memset(obstacle, false, sizeof(bool)*col);
+			
+			ss.clear();
+			ss.str(""); // cleaning stringstream
+			getline(cin, s);
+			
+			ss << s;
+			ss >> cur_row;
+			if (cur_row == 1) status[0] = 1;
+			
+			while (ss >> pos)
+			{
+				obstacle[pos-1] = true;
+			}
+			for (int j=1; j<col; j++)
+			{
+				if (obstacle[j] == true) status[j] = 0;
+				else status[j] += (obstacle[j-1]? 0: status[j-1]);
+			}	
+			
+		}
+		cout << status[col-1] << endl;
+		
+	}
+	return 0;
+}
