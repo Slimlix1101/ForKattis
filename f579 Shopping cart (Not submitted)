@@ -1,0 +1,25 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+using namespace std;
+
+bool basket[101];
+
+int main()
+{
+	int a, b, guestcount, product, t=0;
+	cin >> a >> b >> guestcount;
+	for (int i = 0; i<guestcount; i++)
+	{
+		memset(basket, false, sizeof(bool)*101);
+		while (cin >> product && product != 0)
+		{
+			if (product>0) basket[product] = true;
+			else basket[-product] = false;
+		}
+		if (basket[a] == true && basket[b] == true) t++;
+	}
+	cout << t << endl;
+	
+	return 0;
+}
