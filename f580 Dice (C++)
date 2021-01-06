@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+struct dice {
+	short *up;
+	short *down;
+	short *right;
+	short *left;
+	short *front;
+	short *back;
+};
+
+short v[6] = {1, 6, 2, 5, 4, 3};
+
+dice model = {&v[0], &v[1], &v[2], &v[3], &v[4], &v[5]};
+
+dice *status;
+
+void roll (dice &target, int direction)
+{
+	short *temp;
+	temp = target.up;
+	if (direction==-1) {
+		target.up = target.back;
+		target.back = target.down;
+		target.down = target.front;
+		target.front = temp;
+	} else {
+		target.up = target.left;
+		target.left = target.down;
+		target.down = target.right;
+		target.right = temp;
+	}
+	return;
+}
+
+int main()
+{
+	int n, m, a, b;
+	cin >> n >> m;
+	status = new dice[n];
+	for (int i = 0; i<n; i++)
+		status[i] = model;
+	for (int i = 0; i<m; i++)
+	{
+		cin >> a >> b;
+		if (a>0 && b>0) swap(status[a-1], status[b-1]);
+		else roll(status[a-1], b);
+	}
+	for (int i = 0; i<n; i++)
+			cout << *status[i].up << ' ';
+	cout << '\n';
+	
+	
+	return 0;
+}
