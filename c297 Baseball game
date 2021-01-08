@@ -1,0 +1,76 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+using namespace std;
+
+bool status[4];
+vector<string> saving[9];
+
+int main()
+{
+	int a, adv, pt=0, outto=0, limit, curply, curtime, cnt;
+	string s;
+	for (int i =0; i<9; i++)
+	{
+		cin >> a;
+		saving[i].resize(a);
+		for (int j=0; j<a; j++)
+		{
+			cin >> s;
+			saving[i][j]=s;
+		}
+			
+	}	
+	cin >> limit;
+	curply = 0;
+	curtime = 0;
+	cnt=0;
+	while (outto != limit)
+	{
+		//cout << saving[curply][curtime] << endl;
+		
+		if (saving[curply][curtime][1] == 'B') {
+				adv = saving[curply][curtime][0]-'0';
+				for (int k=3; k>=1; k--)
+				{
+					if (status[k] == true) {
+						if (k+adv>3) {
+							status[k]=false; 
+							pt++;
+						} else {
+							status[k] = false;
+							status[k+adv] = true;
+						}
+							
+					}
+				}
+				status[adv]=true;
+			} else if (saving[curply][curtime][1] == 'R') {
+				pt++;
+				for (int k=1; k<=3; k++)
+				{
+					if (status[k] == true) pt++;
+					status[k] = false;
+				}
+			}
+			else {
+				outto++;
+				cnt++;
+			}
+		//cout << "pt: " << pt << endl;
+		//cout << "cnt: " << cnt << endl;
+		/* for (int i = 1; i<4; i++) 
+			cout << status[i] << ' ';
+		cout << endl; */
+		if (cnt == 3) {
+			memset(status, false, sizeof(bool)*4);
+			cnt=0;
+		}
+		curply++;
+		if (curply==9) {
+			curply=0;
+			curtime++;
+		}
+	}
+	cout << pt << endl;
+}
