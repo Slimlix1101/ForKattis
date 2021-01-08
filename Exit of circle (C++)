@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+ 
+int *roompt;
+ 
+int main()
+{
+	int n, m, needpt, *cur;
+	cin >> n >> m;
+	roompt=new int[n+n];
+	cin >> roompt[0];
+	for (int i = 1; i<n; i++)
+	{
+		cin >> roompt[i];
+		roompt[i]+=roompt[i-1];
+	}
+	for (int i = n; i<n+n; i++)
+	{
+		roompt[i] = roompt[i-1]+(i==n? roompt[0]:roompt[i-n]-roompt[i-n-1]);
+	}
+	cur = roompt;
+	for (int i = 0; i<m; i++)
+	{
+		cin >> needpt;
+		cur = lower_bound(cur, roompt+n+n, (cur==roompt? 0: *(cur-1))+needpt)+1;
+		if (cur-roompt>=n) cur-=n;
+	}
+	cout << (cur-roompt) << endl;
+		
+		
+	return 0;
+}
