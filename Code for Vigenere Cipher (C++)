@@ -1,0 +1,56 @@
+#include <iostream>
+
+using namespace std;
+
+int cnt = 0;
+string alphabets = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
+
+void crypt (string &plain, string key)
+{
+    for (int i=0 ;; )
+    {
+        if (plain[cnt] == ' ') {
+            cnt++;
+            continue;
+        }
+        if (i == key.size()) i = 0;
+        plain[cnt] = alphabets[(int)(plain[cnt]- 'a') + (int)(key[i]-'a')];
+        if (cnt == plain.size()-1) break;
+        i++;
+        cnt++;
+    }
+    return;
+}
+
+void decrypt (string &plain, string key)
+{
+    for (int i=0 ;; )
+    {
+        if (plain[cnt] == ' ') {
+            cnt++;
+            continue;
+        }
+        if (i == key.size()) i = 0;
+        plain[cnt] = alphabets[(int)(plain[cnt]- 'a') + 26 - (int)(key[i]-'a')];
+        if (cnt == plain.size()-1) break;
+        i++;
+        cnt++;
+    }
+    return;
+}
+
+int main()
+{
+    string key, plain;
+    char mode;
+    cout << "Plaintext: ";
+    getline(cin, plain);
+    cout << "\nKey: ";
+    cin >> key;
+    cout << "\nMode: C/D ";
+    cin >> mode;
+    if (mode == 'C') crypt(plain, key);
+    else decrypt(plain, key);
+    cout << plain << endl;
+    return 0;
+}
