@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+ public class Kata
+ {
+    public static string AlphabetWar(string b)
+    {
+        List<char> endround = new List<char>();
+        List<int> startofshelter = new List<int>(), endofshelter = new List<int>();
+        endofshelter.Add(-1);
+        for (int i = 0; i<b.Length; i++)
+        {
+          if (b[i] == '[') startofshelter.Add(i);
+          else if (b[i] == ']') endofshelter.Add(i);
+        }
+        endofshelter.Add(b.Length);
+        int[] bombcount = new int[startofshelter.Count];
+        for (int i = 0; i<endofshelter.Count; i++)
+          for (int j=endofshelter[i]+1; j<startofshelter[i]; j++)
+            if (b[j] == '#') bombcount[i/2]++;
+      for (int i =0; i<bombcount.Length; i++)
+        if (bombcount[i]<2) {
+          for (int j = startofshelter[i]+1; j<endofshelter[i]; j++)
+            endround.Add(b[j]);
+        }
+      
+        return endround.ToArray().ToString();
+    }
+}
