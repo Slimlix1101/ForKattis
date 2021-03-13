@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+char mapinf[51][51];
+bool visited[51][51];
+int goldclt;
+
+int xpos[4] = {0, -1, 0, 1};
+int ypos[4] = {-1, 0, 1, 0};
+
+bool draft(int x, int y)
+{
+	for (int i = 0; i<4; i++)
+		if (mapinf[x+xpos[i]][y+ypos[i]] == 'T') return true;	
+	return false;
+}
+
+void approach(int x, int y)
+{
+	if (visited[x][y] || mapinf[x][y] == '#') return;
+	visited[x][y] = true;
+	
+	if (mapinf[x][y] == 'G') goldclt++;
+	if (draft(x, y)) return; // dangerous or a wall, dont step into
+	
+	for (int i = 0; i<4; i++)
+	{
+		approach(x+xpos[i], y+ypos[i]);
+	}
+				
+}
+
+
+
+int main()
+{
+	cin.tie(0);
+	string a;
+	int W, H, playerx = 0, playery = 0;
+	cin >> W >> H;
+	for (int i = 0; i<H; i++)
+	{
+	
+		cin >> a;
+		for (int j=0; j<W; j++)
+		{
+			mapinf[j][i] = a[j]; 
+			if (a[j] == 'P') {
+				playerx = j;
+				playery = i;
+			}
+		}
+	}
+				
+	approach(playerx, playery);
+	cout << goldclt << endl;
+	
+		
+}
