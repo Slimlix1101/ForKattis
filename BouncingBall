@@ -1,0 +1,137 @@
+
+let pos, v, tempx, tempy;
+var deltaT = 0.1, tlT=0, enesave = 0.9, ts=3;
+
+var p_initx = 200, p_inity = 395;
+var v_initx = 0, v_inity = 0;
+function setup() {
+  pos = createVector(p_initx, p_inity);
+  v = createVector(v_initx, v_inity);
+  
+  inputxv = createInput();
+  inputxv.position(20, 20);
+  inputxv.size(50);
+  
+  textAlign(CENTER);
+  textSize(50);
+  
+  
+  grtxv = createElement('h3', 'X Velocity');
+  grtxv.position(83, 0);
+  
+  
+  inputyv = createInput();
+  inputyv.position(20, 40);
+  inputyv.size(50);
+    
+  grtyv = createElement('h3', 'Y Velocity');
+  grtyv.position(83, 21);
+  
+  
+  inputxp = createInput();
+  inputxp.position(200, 20);
+  inputxp.size(50);
+  
+  grtxp = createElement('h3', 'X Position');
+  grtxp.position(263, 0);
+  
+  inputyp = createInput();
+  inputyp.position(200, 40);
+  inputyp.size(50);
+  
+  grtyp = createElement('h3', 'Y Position');
+  grtyp.position(263, 21);
+  
+  grtcaution = createElement('h4', '5 <= Position <= 300, Energy Loss 10%');
+  grtcaution.position(100, 50);
+  
+  grtxvline = createElement('h3', 'Blue Line: X Velocity');
+  grtxvline.position(410, 0);
+  
+  grtyvline = createElement('h3', 'Red Line: Y Velocity');
+  grtyvline.position(610, 0);
+  
+  grthline = createElement('h3', 'Purple Line: Height');
+  grthline.position(30, 700);
+  
+  button = createButton('Simulate');
+  button.position(20, 65);
+  button.mousePressed(settings);
+  
+  strokeWeight(10);
+  createCanvas(800, 800);
+  drawxy();
+}
+
+function draw() {
+  
+   updateBall();
+  
+}
+
+
+function settings()
+{
+  v = createVector(int(inputxv.value()), int(-inputyv.value()));
+  pos = createVector(int(inputxp.value()), int(395-inputyp.value())); 
+  tlT=0;
+  drawxy();
+}
+
+function drawxy()
+{
+  
+  stroke(0,0,0);
+  square(0, 0, 400);
+  square(0, 401, 800);
+  square(401, 0, 400);
+  
+  
+  
+  // I dimension v.y-t
+  line(420,200,780,200); // x axis
+  line(420,50,420,350); // y axis
+  
+  // III dimension v.x-t
+  line(20,695,780,695); // x axis
+  line(20,450,20,750); // y axis
+  
+  
+}
+
+function updateBall()
+{
+  
+  tlT+=deltaT;
+  v.y += 9.8*deltaT;
+  tempx = pos.x;
+  tempy = pos.y;
+  pos.x += v.x*deltaT;
+  pos.y += v.y*deltaT;
+  
+  if (pos.y>395 || pos.y<105) {
+    pos.y = tempy;
+    v.y = -v.y*enesave;
+  }
+  if (pos.x>395 || pos.x<0) {
+    pos.x = tempx;
+    v.x = -v.x*enesave;
+  }
+
+  stroke(0,0,0);
+  rect(0, 100, 400, 300);
+  strokeWeight(10);
+  point(pos.x, pos.y);
+  strokeWeight(0.1);
+  text('('+ round(pos.x) + ','+ round(395-pos.y) + ')', pos.x>370? pos.x-25 : (pos.x<30? pos.x+25 : pos.x) , pos.y<150? pos.y+20: pos.y-10);
+  textSize(15);
+  
+  strokeWeight(2);
+  stroke(255,0,0);
+  point(420+tlT*ts, 200+v.y); // v.y-t
+  stroke(0,0,255);
+  point(420+tlT*ts, 200+v.x); // v.x-t
+  stroke(255,0,255);
+  point(20+tlT*ts, pos.y+300);
+  
+}
